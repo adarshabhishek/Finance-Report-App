@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trackify.Activities.IntroActivity.screens.IntroScreen
-import com.example.trackify.MainActivity
+import com.example.trackify.Activities.DashboardActivity.MainActivity
 
 class IntoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
