@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.trackify.Activities.DashboardActivity.components.ActionButtonRow
 import com.example.trackify.Activities.DashboardActivity.components.CardSection
 import com.example.trackify.Activities.DashboardActivity.components.HeaderSection
 import com.example.trackify.Domain.ExpenseDomain
@@ -43,6 +44,7 @@ fun MainScreen(
         ){
             item{ HeaderSection() }
             item { CardSection (onCardClick) }
+            item { ActionButtonRow() }
         }
     }
 }
