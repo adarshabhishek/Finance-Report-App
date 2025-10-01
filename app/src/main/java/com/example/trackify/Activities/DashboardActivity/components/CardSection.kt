@@ -82,7 +82,7 @@ fun CardSection(onClick:()->Unit={}){
                     color = Color.White,
                     fontSize = 17.sp
                 )
-                Text(text = "₹ 23,457.80",
+                Text(text = "₹ 8,23,457.80",
                     color = Color.White,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.SemiBold)
