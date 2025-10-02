@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.trackify.Activities.ReportActivity.components.CenterStatsCard
 import com.example.trackify.Activities.ReportActivity.components.GradientHeader
+import com.example.trackify.Activities.ReportActivity.components.SummaryColumns
 import com.example.trackify.Domain.BudgetDomain
+import com.example.trackify.R
 
 @Composable
 fun ReportScreen(
@@ -82,6 +85,17 @@ fun ReportContent(
                 )
             }
         }
+
+        item { SummaryColumns(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)
+                .background(colorResource(R.color.lightBlue),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                )
+                .padding(8.dp)
+        ) }
+
     }
 }
 
