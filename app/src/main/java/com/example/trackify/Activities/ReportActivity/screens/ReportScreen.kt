@@ -1,6 +1,7 @@
 package com.example.trackify.Activities.ReportActivity.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -8,14 +9,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.trackify.Activities.DashboardActivity.components.BottomNavigationBar
+import com.example.trackify.Activities.ReportActivity.components.BudgetItem
 import com.example.trackify.Activities.ReportActivity.components.CenterStatsCard
 import com.example.trackify.Activities.ReportActivity.components.GradientHeader
 import com.example.trackify.Activities.ReportActivity.components.SummaryColumns
@@ -28,7 +35,7 @@ fun ReportScreen(
     onBack: () -> Unit
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (scrollRef,bottomBarRef) = createRefs()
+        val (scrollRef,bottomNavRef) = createRefs()
         ReportContent(
             budgets = budgets,
             modifier = Modifier
@@ -36,8 +43,24 @@ fun ReportScreen(
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
+                bottom.linkTo(bottomNavRef.top)
             },
             onBack = onBack
+        )
+
+        BottomNavigationBar(
+            modifier = Modifier
+                .height(80.dp)
+                .constrainAs(bottomNavRef){
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            onItemSelelected = { itemId ->
+                if (itemId == R.id.wallet) {
+
+                }
+            }
         )
     }
 }
@@ -61,13 +84,13 @@ fun ReportContent(
             {
                 val (header, card) = createRefs()
                 GradientHeader(
-                    modifier= Modifier
+                    modifier = Modifier
                         .fillMaxWidth()
                         .height(250.dp)
-                        .constrainAs(header){
+                        .constrainAs(header) {
                             top.linkTo(parent.top)
                             start.linkTo(parent.start)
-                            end.linkTo( parent.end)
+                            end.linkTo(parent.end)
                         },
                     onBack = onBack
                 )
@@ -76,7 +99,7 @@ fun ReportContent(
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .padding(horizontal = 24.dp)
-                        .constrainAs(card){
+                        .constrainAs(card) {
                             top.linkTo(header.bottom)
                             bottom.linkTo(header.bottom)
                             start.linkTo(parent.start)
@@ -86,16 +109,39 @@ fun ReportContent(
             }
         }
 
-        item { SummaryColumns(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp)
-                .background(colorResource(R.color.lightBlue),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
-                )
-                .padding(8.dp)
-        ) }
+        item {
+            SummaryColumns(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+                    .background(
+                        colorResource(R.color.lightBlue),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                    )
+                    .padding(8.dp)
+            )
+        }
 
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "My budget",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 19.sp,
+                    color=colorResource(R.color.darkBlue)
+                )
+                Text("Edit", color=colorResource(R.color.darkBlue))
+            }
+        }
+        itemsIndexed(budgets){index, item ->
+                BudgetItem(budget = item, index = index)
+        }
     }
 }
 
